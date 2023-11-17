@@ -18,7 +18,7 @@ import { Character } from './character.entity';
  */
 
 export enum RelationshipType {
-  FRIEND = 'FRIEND',
+  ACCOMPLICE = 'ACCOMPLICE',
   ENEMY = 'ENEMY',
 }
 
@@ -33,8 +33,8 @@ export class CharacterRelationship {
   @ManyToOne(() => Character, (character) => character.relationships)
   character: Character;
 
-  @Column('int')
-  relatedCharacterId: number;
+  @ManyToOne(() => Character, (character) => character.id)
+  relatedCharacter: Character;
 }
 
 export const CharacterRelationshipDatabaseModule = TypeOrmModule.forFeature([

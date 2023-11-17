@@ -9,6 +9,7 @@ import { Module } from '@nestjs/common';
  */
 import { DatabaseModule } from '@app/modules/database';
 
+import { CharacterRelationService } from './character-relation.service';
 import { CharacterService } from './character.service';
 
 /**
@@ -21,7 +22,7 @@ import { CharacterService } from './character.service';
 
 @Module({
   imports: [DatabaseModule],
-  providers: [CharacterService],
-  exports: [CharacterService],
+  providers: [CharacterService, CharacterRelationService],
+  exports: [CharacterService, CharacterRelationService],
 })
 export class CharacterModule {}

@@ -9,6 +9,7 @@ import { Module } from '@nestjs/common';
  */
 import { CharacterModule } from '@app/modules/character';
 
+import { CharacterRelationshipController } from './character-relationship.controller';
 import { CharacterController } from './character.controller';
 
 /**
@@ -21,6 +22,6 @@ import { CharacterController } from './character.controller';
 
 @Module({
   imports: [CharacterModule],
-  controllers: [CharacterController],
+  controllers: [CharacterController, CharacterRelationshipController],
 })
 export class CharacterRouterModule {}
