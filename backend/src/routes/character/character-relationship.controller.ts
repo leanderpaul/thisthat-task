@@ -33,7 +33,7 @@ import { CharacterRelationService } from '@app/modules/character';
  */
 
 @ApiTags('Character Relationships')
-@Controller('character/:characterId/relationships')
+@Controller('characters/:characterId/relationships')
 export class CharacterRelationshipController {
   constructor(
     private readonly characterRelationService: CharacterRelationService,
