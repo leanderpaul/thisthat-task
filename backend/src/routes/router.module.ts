@@ -2,7 +2,6 @@
  * Importing npm packages
  */
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
 
 /**
  * Importing user defined packages
@@ -17,8 +16,6 @@ import { ConfigModule } from '@nestjs/config';
  */
 
 @Module({
-  imports: [ConfigModule.forRoot()],
-  controllers: [],
-  providers: [],
+  imports: [],
 })
-export class AppModule {}
+export class RoutesModule {}
