@@ -66,6 +66,9 @@ export class CharacterRelationService {
   }
 
   async getCharacterRelations(id: number): Promise<CharacterRelationDto[]> {
+    const character = await this.characterRepository.findOne({ where: { id } });
+    if (!character) throw new NotFoundException('Character not found');
+
     const result = await this.characterRelationshipRepository.find({
       where: { character: { id } },
       relations: ['character', 'relatedCharacter'],
