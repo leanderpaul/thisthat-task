@@ -6,19 +6,20 @@ import { useState } from 'react';
 /**
  * Importing user defined packages
  */
+import { MarvelCharacter } from '@app/types';
 
 /**
  * Defining types
  */
 
 interface State {
-  data: string[];
+  data: MarvelCharacter[];
   loading: boolean;
 }
 
 interface MarvelCharacterListResponse {
   data: {
-    results: { name: string }[];
+    results: MarvelCharacter[];
   };
 }
 
@@ -49,9 +50,8 @@ export function useMarvelCharacterList(): MarvelCharacterList {
     const params = searchParams.toString();
     const response = await fetch(`${marvelBaseUrl}/characters?${params}`);
     const json: MarvelCharacterListResponse = await response.json();
-    const characterList = json.data.results.map((character) => character.name);
 
-    setState({ data: characterList, loading: false });
+    setState({ data: json.data.results, loading: false });
   }
 
   return { fetch: fetchCharacters, clear, ...state };

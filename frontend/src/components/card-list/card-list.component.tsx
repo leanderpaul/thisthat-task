@@ -9,6 +9,7 @@ import { Card } from '@app/components/card';
 import { Loader } from '@app/components/loader';
 
 import { Container } from './card-list.styles';
+import { MarvelCharacter } from '@app/types';
 
 /**
  *  Importing user defined modules
@@ -20,8 +21,8 @@ import { Container } from './card-list.styles';
 
 export interface CardListProps {
   loading: boolean;
-  data: string[];
-  onCardClick?: (name: string) => void;
+  characterList: MarvelCharacter[];
+  onCardClick?: (name: MarvelCharacter) => void;
 }
 
 /**
@@ -36,11 +37,11 @@ export function CardList(props: CardListProps) {
     <Container>
       <Loader show={props.loading} height="200px" />
       {!props.loading &&
-        props.data.map((name, index) => (
+        props.characterList.map((character, index) => (
           <Card
-            name={name}
+            character={character}
             key={index}
-            onClick={() => props.onCardClick?.(name)}
+            onClick={() => props.onCardClick?.(character)}
           />
         ))}
     </Container>

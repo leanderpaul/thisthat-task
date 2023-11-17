@@ -5,7 +5,9 @@
 /**
  * Importing user defined components
  */
-import { Container } from './card.styles';
+import { MarvelCharacter } from '@app/types';
+
+import { Container, ImageContainer, ContentContainer } from './card.styles';
 
 /**
  *  Importing user defined modules
@@ -16,7 +18,7 @@ import { Container } from './card.styles';
  */
 
 export interface CardProps {
-  name: string;
+  character: MarvelCharacter;
   onClick?: () => void;
 }
 
@@ -28,9 +30,19 @@ export interface CardProps {
  * Functional Component
  */
 export function Card(props: CardProps) {
+  const thumbnail = `${props.character.thumbnail.path}.${props.character.thumbnail.extension}`;
+
   return (
     <Container onClick={() => props.onClick?.()}>
-      <span>{props.name}</span>
+      <ImageContainer>
+        <img src={thumbnail} alt={props.character.name} width="100%" />
+      </ImageContainer>
+      <ContentContainer>
+        <h4>{props.character.name}</h4>
+        <p className="desc">
+          {props.character.description || <i>No description available</i>}
+        </p>
+      </ContentContainer>
     </Container>
   );
 }

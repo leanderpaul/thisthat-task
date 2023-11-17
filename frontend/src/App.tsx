@@ -12,7 +12,9 @@ import { TextField } from './components/text-field';
  *  Importing user defined modules
  */
 import { useMarvelCharacterList } from '@app/hooks';
+
 import { CardList } from './components/card-list';
+import { MarvelCharacter } from './types';
 
 /**
  * Declaring types
@@ -30,8 +32,8 @@ function App() {
   const [value, setValue] = useState('');
   const { data, loading, fetch, clear } = useMarvelCharacterList();
 
-  function showAlert(name: string) {
-    alert(`You have selected '${name}'`);
+  function showAlert(character: MarvelCharacter) {
+    alert(`You have selected '${character.name}'`);
     setValue('');
   }
 
@@ -53,7 +55,7 @@ function App() {
           onChange={setValue}
         />
         <CardList
-          data={data}
+          characterList={data}
           loading={loading && data.length === 0}
           onCardClick={showAlert}
         />
