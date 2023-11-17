@@ -6,6 +6,7 @@ import { Module } from '@nestjs/common';
 /**
  * Importing user defined packages
  */
+import { CharacterRouterModule } from './character';
 
 /**
  * Defining types
@@ -16,6 +17,6 @@ import { Module } from '@nestjs/common';
  */
 
 @Module({
-  imports: [],
+  imports: [CharacterRouterModule],
 })
 export class RoutesModule {}
