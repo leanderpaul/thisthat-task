@@ -1,6 +1,8 @@
 /**
  * Importing npm packages
  */
+import { ValidationPipe } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
@@ -12,8 +14,6 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
  * Defining types
  */
 import { AppModule } from './app.module';
-import { ConfigService } from '@nestjs/config';
-import { ValidationPipe } from '@nestjs/common';
 
 /**
  * Declaring the constants
@@ -25,6 +25,7 @@ async function bootstrap() {
     new ValidationPipe({
       forbidNonWhitelisted: true,
       forbidUnknownValues: true,
+      transform: true,
     }),
   );
 

@@ -2,15 +2,15 @@
  * Importing npm packages
  */
 import { Injectable } from '@nestjs/common';
-import { FindOptionsWhere, Like } from 'typeorm';
 import lodash from 'lodash';
+import { FindOptionsWhere, Like } from 'typeorm';
 
 /**
  * Importing user defined packages
  */
-import { DatabaseService, type Character, Gender } from '@app/modules/database';
-import { CreateCharacterDto } from '@app/dtos/character';
+import { CreateCharacterDto, UpdateCharacterDto } from '@app/dtos/character';
 import { FindCharacterQueryDto } from '@app/dtos/character/find-character-query.dto';
+import { type Character, DatabaseService, Gender } from '@app/modules/database';
 
 /**
  * Defining types
@@ -35,8 +35,15 @@ export class CharacterService {
     return await this.characterRepository.save(character);
   }
 
+  async getCharactersCount(query: FindCharacterQueryDto): Promise<number> {
+    const where: FindOptionsWhere<Character> = {};
+    if (query.name) where.name = Like(`%${query.name}%`);
+    if (query.gender) where.gender = query.gender;
+    if (typeof query.isActive === 'boolean') where.isActive = query.isActive;
+    return await this.characterRepository.count({ where });
+  }
+
   async getCharacters(query: FindCharacterQueryDto): Promise<Character[]> {
-    query = lodash.defaults(query, { offset: 0, limit: 20 });
     const where: FindOptionsWhere<Character> = {};
     if (query.name) where.name = Like(`%${query.name}%`);
     if (query.gender) where.gender = query.gender;
@@ -46,5 +53,24 @@ export class CharacterService {
       skip: query.offset,
       take: query.limit,
     });
+  }
+
+  async getCharacter(id: number): Promise<Character | null> {
+    return await this.characterRepository.findOne({ where: { id } });
+  }
+
+  async updateCharacter(
+    id: number,
+    update: UpdateCharacterDto,
+  ): Promise<Character | null> {
+    const character = await this.getCharacter(id);
+    if (!character) return null;
+    const updatedVal = await this.characterRepository.save({ id, ...update });
+    return lodash.merge(character, updatedVal);
+  }
+
+  async deleteCharacter(id: number): Promise<boolean> {
+    const res = await this.characterRepository.delete({ id });
+    return res.affected === 1;
   }
 }

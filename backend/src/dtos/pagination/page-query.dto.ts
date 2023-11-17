@@ -1,8 +1,9 @@
 /**
  * Importing npm packages
  */
-
 import { ApiProperty } from '@nestjs/swagger';
+import { Type } from 'class-transformer';
+import { IsInt, IsOptional, Min } from 'class-validator';
 
 /**
  * Importing user defined packages
@@ -18,8 +19,16 @@ import { ApiProperty } from '@nestjs/swagger';
 
 export class PageQueryDto {
   @ApiProperty({ required: false, default: 20 })
-  limit?: number;
+  @Type(() => Number)
+  @IsInt()
+  @Min(1)
+  @IsOptional()
+  limit: number = 20;
 
   @ApiProperty({ required: false, default: 0 })
-  offset?: number;
+  @Type(() => Number)
+  @IsOptional()
+  @IsInt()
+  @Min(0)
+  offset: number = 0;
 }
