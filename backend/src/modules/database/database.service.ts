@@ -8,8 +8,8 @@ import { type Repository } from 'typeorm';
 /**
  * Importing user defined packages
  */
-import { Character } from './entities/character.entity';
 import { CharacterRelationship } from './entities/character-relationship.entity';
+import { Character } from './entities/character.entity';
 
 /**
  * Defining types

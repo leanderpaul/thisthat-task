@@ -1,8 +1,8 @@
 /**
  * Importing npm packages
  */
-import { Entity, Column, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 /**
  * Importing user defined packages

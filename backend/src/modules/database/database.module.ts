@@ -2,6 +2,7 @@
  * Importing npm packages
  */
 import { Module } from '@nestjs/common';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 /**
@@ -9,14 +10,13 @@ import { TypeOrmModule } from '@nestjs/typeorm';
  */
 import { DatabaseService } from './database.service';
 import {
-  CharacterDatabaseModule,
-  Character,
-} from './entities/character.entity';
-import {
-  CharacterRelationshipDatabaseModule,
   CharacterRelationship,
+  CharacterRelationshipDatabaseModule,
 } from './entities/character-relationship.entity';
-import { ConfigModule, ConfigService } from '@nestjs/config';
+import {
+  Character,
+  CharacterDatabaseModule,
+} from './entities/character.entity';
 
 /**
  * Defining types

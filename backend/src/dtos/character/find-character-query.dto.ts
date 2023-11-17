@@ -1,8 +1,8 @@
 /**
  * Importing npm packages
  */
-import { IsBoolean, IsEnum, IsOptional, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+import { IsBoolean, IsEnum, IsOptional, IsString } from 'class-validator';
 
 /**
  * Importing user defined packages

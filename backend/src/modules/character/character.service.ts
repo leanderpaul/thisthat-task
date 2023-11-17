@@ -10,7 +10,7 @@ import { FindOptionsWhere, Like } from 'typeorm';
  */
 import { CreateCharacterDto, UpdateCharacterDto } from '@app/dtos/character';
 import { FindCharacterQueryDto } from '@app/dtos/character/find-character-query.dto';
-import { type Character, DatabaseService, Gender } from '@app/modules/database';
+import { type Character, DatabaseService } from '@app/modules/database';
 
 /**
  * Defining types
