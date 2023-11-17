@@ -11,34 +11,40 @@ import { useState } from 'react';
  * Defining types
  */
 
+interface State {
+  data: string[];
+  loading: boolean;
+}
+
 interface MarvelCharacterListResponse {
   data: {
     results: { name: string }[];
   };
 }
 
-export interface MarvelCharacterList {
-  data: string[];
-  loading: boolean;
+export interface MarvelCharacterList extends State {
+  fetch(name: string): Promise<void>;
+  clear(): void;
 }
 
 /**
  * Declaring the constants
  */
-
 const apikey = import.meta.env.VITE_MARVEL_API_KEY;
 const marvelBaseUrl = 'https://gateway.marvel.com:443/v1/public';
 if (!apikey) throw new Error('REACT_APP_MARVEL_API_KEY is not defined');
 
-// export interface MarvelCharacterListHookProps {}
+export function useMarvelCharacterList(): MarvelCharacterList {
+  const [state, setState] = useState<State>({ data: [], loading: false });
 
-export function useMarvelCharacterList(): [(name: string) => Promise<void>, MarvelCharacterList] {
-  const [state, setState] = useState<MarvelCharacterList>({ data: [], loading: false });
+  const clear = () => setState({ data: [], loading: false });
 
   async function fetchCharacters(name: string) {
     setState({ ...state, loading: true });
 
-    const searchParams = new URLSearchParams({ apikey, orderBy: 'name', limit: '10' });
+    const searchParams = new URLSearchParams({ apikey });
+    searchParams.append('limit', '10');
+    searchParams.append('orderBy', 'name');
     searchParams.append('nameStartsWith', name);
     const params = searchParams.toString();
     const response = await fetch(`${marvelBaseUrl}/characters?${params}`);
@@ -48,5 +54,5 @@ export function useMarvelCharacterList(): [(name: string) => Promise<void>, Marv
     setState({ data: characterList, loading: false });
   }
 
-  return [fetchCharacters, state];
+  return { fetch: fetchCharacters, clear, ...state };
 }
